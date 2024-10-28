@@ -1,0 +1,164 @@
+@media screen and (max-width: 490px) {
+  .header1 {
+    flex-direction: column;
+  }
+
+  .header2 {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .menu-list span {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header2 {
+    flex-direction: column;
+  }
+
+  .header2-right span {
+    display: none;
+  }
+}
+/* 
+
+@media screen and (max-width: 580px) {
+  .search-box {
+    align-items: end;
+    padding-top: 20px;
+  }
+
+  .button-list-phone {
+    padding-top: 15px;
+  }
+} */
+/* search navbar */
+@media screen and (max-width:1200px) {
+   #InputContainer{
+    display:none;
+  }
+  .navbar-toggler{
+    order:1;
+  }
+  #btnSearchNav{
+    order:2;
+  }
+  .nav-brand{
+    order:3;
+  }
+  .buttonInforUser{
+    order:4;
+  }
+   /* reponsive home view */
+  .contentuser{
+    margin-top:200px;
+  }
+  /* end responsive home view */
+  .contentabout{
+    margin-top:180px;
+  }
+  .cartView{
+    margin-top:160px;
+  }
+  .productViewUser{
+    margin-top:200px;
+  }
+  .productDetail{
+    margin-top:200px;
+  }
+   .bookingUserView{
+    margin-top:200px;
+  }
+  .orderUser{
+    margin-top:180px;
+  }
+  .inforUserView{
+    margin-top:180px;
+  }
+}
+@media screen and (min-width:1201px) {
+  #btnSearchNav{
+    display:none;
+  }
+  /* reponsive home view */
+  .contentuser{
+    margin-top:200px;
+  }
+  .contentabout{
+    margin-top:240px;
+  }
+  /* end responsive home view */
+  .cartView{
+    margin-top:190px;
+  }
+  .productViewUser{
+    margin-top:220px;
+  }
+  .productDetail{
+    margin-top:200px;
+  }
+  .bookingUserView{
+    margin-top:220px;
+  }
+  .orderUser{
+    margin-top:220px;
+  }
+  .inforUserView{
+    margin-top:200px;
+  }
+}
+@media screen and (max-width:1000px){
+  .MenuCat{
+    display:none
+  }
+  .product-list{
+    justify-content:flex-start;
+  }
+  
+ 
+}
+@media screen and (min-width:1001px) {
+  .product-list{
+    justify-content: flex-start;
+  }  
+   .SmallCategory{
+    display:none;
+  }
+}
+/* 
+@media screen and (max-width:768px){
+  .product-list{
+    justify-content:center;
+  }
+} */
+
+
+/* end responsive about view */
+
+/* @media screen and (min-width: 769px) {
+  .button-list-phone {
+    display: none;
+  }
+  .search-box {
+    align-items: end;
+  }
+} */
+@media screen and (max-width: 770px) {
+  .product-detail {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width:780px) {
+  .navbar-nav {
+    display: none;
+  }
+}
+@media screen and (max-width:800px) {
+  .cartTable{
+    display:none;
+  }
+}
