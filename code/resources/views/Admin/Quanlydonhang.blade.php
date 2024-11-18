@@ -122,15 +122,10 @@
           </ul>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 <!-- Button trigger modal -->
-
-
-
-
 
 
 
