@@ -110,11 +110,8 @@
         </div>
       </div>
     </div>
-
   </div>
 </section>
-
-
 
 <div class="pagetitle">
   <h1>Danh Sách Đơn Hàng</h1>

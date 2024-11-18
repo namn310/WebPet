@@ -6,13 +6,20 @@
 </div><!-- End Page Title -->
 @if (session('status'))
 <script>
+  // $.toast({
+  //                       heading: 'Success',
+  //                       text: '{{ session('status') }}',
+  //                       showHideTransition: 'slide',
+  //                       icon: 'success',
+  //                       position: 'bottom-right'
+  //                       })
   $.toast({
-                        heading: 'Success',
-                        text: '{{ session('status') }}',
-                        showHideTransition: 'slide',
-                        icon: 'success',
-                        position: 'bottom-right'
-                        })
+    heading: 'Success',
+    text: '{{ session('status') }}',
+    showHideTransition: 'slide',
+    icon: 'success',
+    position: 'bottom-right'
+  })
 </script>
 
 @endif
@@ -127,11 +134,6 @@
   </div>
 </section>
 <!-- Button trigger modal -->
-
-
-
-
-
 
 
 <!-- ======= Footer ======= -->
