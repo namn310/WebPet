@@ -136,7 +136,7 @@
 <!-- Button trigger modal -->
 
 
-<!-- ======= Footer ======= -->
+<!-- ====== Footer ====== -->
 
 
 
