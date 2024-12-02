@@ -11,7 +11,7 @@
     @if (session('error'))
     <div class="alert alert-danger alert-dismissible" style="width:20%;position: absolute;right:20px;top:100px">
         <p>{{ session('error') }}</p>
-        <button class="btn btn-close" data-bs-dismiss="alert"></button>
+        <button class="btn btn-close"  data-bs-dismiss="alert"></button>
     </div>
     @endif
     <!-- End Page Title -->
@@ -29,11 +29,7 @@
     </form>
 </div>
 
-
-
 <!-- ======= Footer ======= -->
-
-
 
 
 <script>
