@@ -24,12 +24,13 @@ use App\Http\Controllers\User\checkOutController;
 use App\Http\Controllers\User\BookingUserController;
 use App\Http\Controllers\User\OrderUserController;
 use App\Http\Controllers\User\VoucherUserController;
-use Illuminate\Support\Facades\Route;
-
+// VNPAY
+use App\Http\Controllers\VNPAY\VNPAYController;
 //Forgot pass
 use App\Http\Controllers\Email\ForgetPasswordController;
 use App\Http\Controllers\API\LoginGoogleController;
 
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,9 +50,9 @@ use App\Http\Controllers\API\LoginGoogleController;
 // Route::get('test', [TestController::class, 'index'])->name('User.test');
 // Route::post('test', [TestController::class, 'store'])->name('test.store');
 
-// //Login Google
-// Route::get('auth/google', [LoginGoogleController::class, 'redirectToGoogle'])->name('loginGoogle');
-// Route::get('auth/google/callback', [LoginGoogleController::class, 'handleGoogleCallback'])->name('callback');
+//Login Google
+Route::get('auth/google', [LoginGoogleController::class, 'redirectToGoogle'])->name('loginGoogle');
+Route::get('auth/google/callback', [LoginGoogleController::class, 'handleGoogleCallback'])->name('callback');
 //user view
 
 Route::group(['namespace' => 'User', 'prefix' => ''], function () {
@@ -75,11 +76,27 @@ Route::group(['namespace' => 'User', 'prefix' => ''], function () {
         Route::get('order/destroyBook/{id}', [BookingController::class, 'destroy'])->name('user.destroyBook');
         Route::get('saveVoucher/{id}', [VoucherUserController::class, 'store'])->name('user.saveVoucher');
         // cart
-        Route::get('cart/addPro/{id}', [CartController::class, 'add'])->name('user.add');
+        Route::post('cart/addPro/{id}', [CartController::class, 'add'])->name('user.add');
         Route::get('cart/destroy', [CartController::class, 'destroyCart'])->name('user.destroyCart');
         Route::post('cart/update', [CartController::class, 'update'])->name('user.cartupdate');
         Route::get('cart/delete/{id}', [CartController::class, 'delete'])->name('user.delete');
         Route::get('cart/voucher', [CartController::class, 'useVoucher'])->name('user.useVoucher');
+        // thanh toán VN_PAY
+        Route::get('vn_pay/index', function () {
+            return view('VN_PAY.index');
+        });
+        Route::get('vn_pay/vnpay_create_payment', [VNPAYController::class, 'createPayment'])->name('vnpay.createPayment');
+        Route::get('vn_pay/vnpay_ipn', [VNPAYController::class, 'vnpay_ipn'])->name('vnpay.vnpay_ipn');
+        Route::get('vn_pay/vnpay_pay', function () {
+            return view('VN_PAY.vnpay_pay');
+        });
+        Route::get('vn_pay/vnpay_querydr', function () {
+            return view('VN_PAY.vnpay_querydr');
+        });
+        Route::get('vn_pay/vnpay_refund', function () {
+            return view('VN_PAY.vnpay_refund');
+        });
+        Route::get('vn_pay/vnpay_return', [CartController::class, 'saveOrderVnpay'])->name('vnpay.saveOrderToDB');
     });
     //forget pass
     Route::get('forgetPass', [ForgetPasswordController::class, 'index'])->name('user.forgetPass');
