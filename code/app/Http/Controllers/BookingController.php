@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Throwable;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use DateTime;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -52,24 +54,54 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name'=>[
-        //         'regex:'
-        //     ]
-        // ]);
         $idCus = Auth::guard('customer')->user()->id;
         try {
-            $book = Booking::create([
-                'name' => $request->input('name'),
-                'type' => $request->input('type'),
-                'name_service' => $request->input('dichvu'),
-                'goi' => $request->input('goi'),
-                'weight' => $request->input('weight'),
-                'date' => $request->input('date'),
-                'note' => $request->input('note'),
-                'idCus' => $idCus
-            ]);
-            //
+            // format ngày hẹn 
+            $date = new DateTime($request->input('date'));
+            // $date2 = new DateTime();
+            // $date3 = $date2->setTimestamp($date->getTimestamp());
+            // $date3->format('Y-m-d H:i:s');
+            // dd($date->getTimestamp(), $date3);
+            // dd($date3);
+            // kiểm tra xem lịch hẹn đã có ai đặt chưa 
+            $listDateBook = DB::table('bookings')->select('date')->where('date', $date->getTimestamp())->get();
+            if ($listDateBook->isEmpty()) {
+                $book = Booking::create([
+                    'name' => $request->input('name'),
+                    'type' => $request->input('type'),
+                    'name_service' => $request->input('dichvu'),
+                    'goi' => $request->input('goi'),
+                    'weight' => $request->input('weight'),
+                    // chuyển về timestamp rồi thêm vào db
+                    'date' => $date->getTimestamp(),
+                    'note' => $request->input('note'),
+                    'idCus' => $idCus
+                ]);
+            } else {
+                $count = 0;
+                foreach ($listDateBook as $row) {
+                    // nếu tồn tại thời gian thì kiểm tra
+                    if (abs($date->getTimestamp() - $row->date) > 7200) {
+                        $count += 1;
+                    }
+                }
+                if ($count > 0) {
+                    $book = Booking::create([
+                        'name' => $request->input('name'),
+                        'type' => $request->input('type'),
+                        'name_service' => $request->input('dichvu'),
+                        'goi' => $request->input('goi'),
+                        'weight' => $request->input('weight'),
+                        // chuyển về timestamp rồi thêm vào db
+                        'date' => $date->getTimestamp(),
+                        'note' => $request->input('note'),
+                        'idCus' => $idCus
+                    ]);
+                    return redirect(route('user.book'))->with('notice', 'Đặt lịch thành công ! Bạn có thể kiểm tra lại thông tin lịch hẹn trong phần đơn hàng');
+                } else {
+                    return redirect(route('user.book'))->with('error', 'Hiện tại thời gian bạn chọn đã có lịch. Vui lòng chọn thời gian khác')->withInput();
+                }
+            }
         } catch (Throwable) {
             return redirect(route('user.book'))->with('error', 'Đặt lịch thất bại !')->withInput();
         }
@@ -81,8 +113,9 @@ class BookingController extends Controller
      */
     public function detail(string $id)
     {
-        $book = Booking::find($id)->get();
-        return view('Admin.BookDetail', ['book' => $book]);
+        $book1 = new Booking;
+        $book = DB::table('bookings')->where('id', $id)->get();
+        return view('Admin.BookDetail', ['book' => $book, 'book1' => $book1]);
     }
 
     /**

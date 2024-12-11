@@ -15,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $Order = Order::all();
+        $Order = Order::orderBy('id', 'desc')->get();
         return view('Admin.Quanlydonhang', ['Order' => $Order]);
     }
     public function detail($id)
@@ -24,8 +24,9 @@ class OrderController extends Controller
         $totalPrice = $product->getTotalCost($id);
         $OrderDetail = OrderDetail::select()->where('idOrder', $id)->get();
         $Order = Order::select()->where('id', $id)->get();
-        // $Order = Order::find($id)->get();
-        return view('Admin.ChiTietDonHang', ['Order' => $Order, 'OrderDetail' => $OrderDetail, 'totalPrice' => $totalPrice]);
+        $OrderDe2 = Order::find($id);
+        $discountVoucher = $product->getVoucher($OrderDe2->idVoucher);
+        return view('Admin.ChiTietDonHang', ['Order' => $Order, 'OrderDetail' => $OrderDetail, 'totalPrice' => $totalPrice, 'product' => $product, 'discountVoucher' => $discountVoucher]);
     }
     public function delivery($id)
     {
@@ -45,50 +46,6 @@ class OrderController extends Controller
         $order->update();
         return redirect(route('admin.order'))->with('status', 'Giao hàng thành công');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $order = Order::find($id);
