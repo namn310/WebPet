@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\product;
 use Illuminate\Http\Request;
+use App\Models\User\Order;
+use App\Models\User\OrderDetail;
+use Illuminate\Support\Facades\Auth;
 
 class checkOutController extends Controller
 {
@@ -12,7 +16,7 @@ class checkOutController extends Controller
      */
     public function index()
     {
-        //
+        return view('User.CheckOut');
     }
 
     /**
@@ -26,9 +30,26 @@ class checkOutController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function confirmCheckOut(Request $request)
     {
-        //
+
+        $idCus = Auth::guard('customer')->user()->id;
+        $order = Order::create(['idCus' => $idCus, 'status' => 0, 'address' => $request->input('address'), 'note' => $request->input('address'), 'thanhtoan' => $request->input('payment')]);
+        $latestOrder = Order::latest()->first()->toArray();
+        $idLatestOrder = $latestOrder['id'];
+        //  $lastPro = product::latest()->first()->toArray();
+        //dd($idLatestOrder);
+        foreach (session('cart') as $product) {
+            $idPro = $product['idPro'];
+            $orderDetail = OrderDetail::create([
+                'number' => $product['count'],
+                'idPro' => $idPro,
+                'price' => $product['cost'],
+                'idOrder' => $idLatestOrder
+            ]);
+        }
+        session()->forget('cart');
+        return redirect(route('user.cart'))->with('status', 'Đơn hàng của bạn đã được xác nhận !');
     }
 
     /**
