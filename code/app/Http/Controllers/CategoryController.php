@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\category;
 
 class CategoryController extends Controller
 {
@@ -11,7 +12,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = category::all();
+        return view('Admin.Quanlydanhmuc')->with('category', $category);
     }
 
     /**
@@ -19,7 +21,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.Adddanhmuc');
     }
 
     /**
@@ -27,7 +29,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new category();
+        try {
+            $category->createCat($request);
+        } catch (\Throwable) {
+            return redirect(route('admin.categoryForm'))->with('error', 'Thêm danh mục thất bại');
+        }
+        return redirect(route('admin.category'))->with('notice', 'Thêm danh mục thành công !');
     }
 
     /**
@@ -51,7 +59,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $product = category::find($id);
+        $product->name = $request->input('nameCat');
+        $product->update();
+        return redirect(route('admin.category'))->with('notice', 'Thay đổi thành công !');
     }
 
     /**
@@ -59,6 +70,8 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = category::find($id);
+        $category->delete();
+        return redirect(route('admin.category'))->with('notice', 'Xóa danh mục thành công');
     }
 }

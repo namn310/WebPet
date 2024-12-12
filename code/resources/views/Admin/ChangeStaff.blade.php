@@ -26,7 +26,7 @@
     </ol>
   </nav>
   @foreach ($staff as $row )
-  <!--  End Page Title -->
+  <!-- End Page Title -->
   <form style="font-size:2vw;font-size:2vh" id="AddForm" class="row mt-4" method="post"
     action="{{ route('admin.staffUpdate',['id'=>$row->id]) }}" enctype="multipart/form-data"
     style="background-color: white;padding:20px;border-radius:20px;box-shadow: 2px 2px 2px #FFCC99;">

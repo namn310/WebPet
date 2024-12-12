@@ -44,7 +44,7 @@
             <div class="carouselVoucher">
                 @foreach ($voucher as $row)
                 {{-- voucherItem --}}
-                <div style="max-width:150xp;height:240px;background-color:red;color:white;border-radius:10px"
+                <div style="max-width:450px;height:240px;background-color:red;color:white;border-radius:10px"
                     class="d-flex align-items-center me-3 text-center">
                     <div class="me-3 ms-2" style="font-size:30px">
                         <i class="fa-solid fa-ticket fa-xl" style="color: white;"></i>

@@ -855,6 +855,7 @@ $this->layoutPath = "Layout.php";
                 </td>
                 <td>
                   <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+
                 </td>
               </tr>
               <tr>

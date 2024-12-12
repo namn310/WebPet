@@ -36,6 +36,8 @@
                         <input class="form-control" type="text" id="searchNV">
                     </div>
 
+
+
                     <table style="font-size:2vw;font-size:2vh" class="table table-hover table-bordered text-center" cellpadding="0" cellspacing="0"
                         border="0" id="sampleTable">
                         <thead>
@@ -131,9 +133,11 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </td>
                             </tr>
                             @endforeach
+
                         </tbody>
                     </table>
                 </div>
@@ -142,7 +146,10 @@
     </div>
 </div>
 
+
 <!-- ======= Footer ======= -->
+
+
 
 
 <script>

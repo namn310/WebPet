@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
+use App\Models\dr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class BannerController extends Controller
 {
@@ -11,7 +14,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //
+        return view('Admin.QuanLyBanner');
     }
 
     /**
@@ -19,7 +22,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.AddBanner');
     }
 
     /**
@@ -27,13 +30,21 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $banner=new Banner();
+        $fileHome= $request->input('home');
+        $extensionHome=$fileHome->getClientOriginalExtension();
+        $fileHomeName=time().'.'.$extensionHome;
+        $fileHome->move('assets/img-banner', $fileHomeName);
+        $banner->image_home=$fileHomeName;
+        //file slide
+        $fileSlide=$request->input('slide');
+       
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
         //
     }
@@ -41,7 +52,7 @@ class BannerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
         //
     }
@@ -49,7 +60,7 @@ class BannerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         //
     }
@@ -57,7 +68,7 @@ class BannerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
         //
     }

@@ -57,7 +57,7 @@
 
 
                     <table style="font-size:2vw;font-size:2vh" class="table table-hover table-bordered text-center"
-                        cellpadding="0" cellspacing="0" id="sampleTable">
+                        cellpadding="0" cellspacing="0" border="0" id="sampleTable">
                         <thead>
 
                             <tr class="table-primary">
@@ -82,7 +82,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody id="table-voucher">
+                        <tbody id="table-nv">
                             @foreach ($voucher as $row )
 
                             <tr>
@@ -176,7 +176,7 @@
     $(document).ready(function() {
             $("#searchNV").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
-                $("#table-voucher tr").filter(function() {
+                $("#table-nv tr").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });

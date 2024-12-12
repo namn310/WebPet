@@ -33,7 +33,7 @@
                             position: 'bottom-right'
                             })
     </script>
-    {{--<div class="alert alert-danger alert-dismissible" style="width:30%;position:absolute;right:20px;top:20px">
+    {{-- <div class="alert alert-danger alert-dismissible" style="width:30%;position:absolute;right:20px;top:20px">
         <p>{{ session('status') }}</p>
         <button class="btn btn-close" data-bs-dismiss="alert"></button>
     </div> --}}

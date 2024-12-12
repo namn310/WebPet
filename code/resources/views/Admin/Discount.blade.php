@@ -81,7 +81,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody id="table-discount">
+                        <tbody id="table-nv">
                             @foreach ($discount as $row)
                             <tr>
                                 <td>{{ $row->name }}</td>
@@ -160,11 +160,15 @@
 
 
 <!-- ======= Footer ======= -->
+
+
+
+
 <script>
     $(document).ready(function() {
             $("#searchNV").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
-                $("#table-discount tr").filter(function() {
+                $("#table-nv tr").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });

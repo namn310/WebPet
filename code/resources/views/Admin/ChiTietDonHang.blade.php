@@ -93,10 +93,10 @@
             </table>
         </div>
         <h5 class="text-end text-danger"><b>Tổng tiền: {{ number_format( $totalPrice) }}đ</b></h5>
-        @if ($product->getVoucher($row->id)>0)
-        <h5 class="text-end text-danger"> <b>Giảm giá Voucher : {{ $product->getVoucher($row->id) }}%</b></h5>
+        @if ($discountVoucher > 0 && $discountVoucher !== null)
+        <h5 class="text-end text-danger"> <b>Giảm giá Voucher : {{ $discountVoucher }}%</b></h5>
         <h4 class="text-end text-danger"><b>Thành tiền : {{ number_format($totalPrice-($totalPrice *
-                ($product->getVoucher($row->id)/100))) }}đ</b></h4>
+                ($discountVoucher/100))) }}đ</b></h4>
         @endif
     </div>
     @endforeach

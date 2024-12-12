@@ -1,6 +1,6 @@
 @extends('User.LayoutTrangChu')
 @section('content')
-<!-- user infor   -->
+<!-- user infor -->
 @if (session('notice'))
 <script>
   $.toast({

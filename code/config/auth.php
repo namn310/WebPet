@@ -40,7 +40,22 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customer',
+        ],
+
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'customer'
+        ],
+        // 'google_clients' => [
+        //     'driver' => 'session',
+        //     'provider' => 'google_clients'
+        // ],
+
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -64,11 +79,18 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
+        'customer' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User\Customer::class,
+        ],
+        // 'google_clients' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\User\GoogleUser::class,
         // ],
+
+    ],
+    'socialite' => [
+        'driver' => 'google',
     ],
 
     /*
@@ -97,6 +119,17 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'customer' => [
+            'provider' => 'customer',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        // 'google_clients' => [
+        //     'provider' => 'google_clients',
+        //     'expire' => 60,
+        //     'throttle' => 60,
+        // ]
     ],
 
     /*

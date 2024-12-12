@@ -42,10 +42,51 @@
   .product-detail-intro {
     flex: 1;
   }
+
+  /* From Uiverse.io by Cybercom682 */
+  .number-control {
+    display: flex;
+    align-items: center;
+  }
+
+  .number-left::before,
+  .number-right::after {
+    content: attr(data-content);
+    background-color: #333333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    width: 20px;
+    color: white;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+
+  .number-left::before {
+    content: "-";
+  }
+
+  .number-right::after {
+    content: "+";
+  }
+
+  .number-quantity {
+    padding: 0.25rem;
+    border: 1px solid black;
+    width: 50px;
+    -moz-appearance: textfield;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+
+  .number-left:hover::before,
+  .number-right:hover::after {
+    background-color: #666666;
+  }
 </style>
 <script>
   $(document).ready(function() {
-            //var listImage=document.querySelectorAll("main-img-product");
             var listImage = document.querySelectorAll(".list-img");
             listImage.forEach(img => {
                 var a = $(img).attr('src');
@@ -53,43 +94,21 @@
                     $('.main-img-product').attr('src', a);
                 })
             });
-            //ajax comment
-            $('#submitComment').on('click',function(){
-              var idPro=$('#idPro').text();
-              var comment =$('#commentTitle').val();
-              
-            })
-            // $.ajax({
-            //   url: 'product/detail/'.idPro,
-            //   method: 'POST',
-            //   data: {
-            //     comment: comment
-            //   },
-            //   success: function(response){
-                
-            //   }
-            // })
         })
 </script>
 <!-- Danh mục sản phẩm-->
 <div class="container-fluid pdt productDetail">
   <div class="row a ">
     <div>
-      <nav class="navbar mb-3 navbar-light bg-light justify-content-between">
-        <form class="form-inline d-flex">
-          <!-- <input class="form-control mr-sm-2" type="text" id="nameProductSearch" placeholder="Search" aria-label="Search"> -->
-          <!-- <button class="btn btn-outline-success my-2 my-sm-0 ml-3" id="buttonSearch" type="button">Search</button> -->
-        </form>
-      </nav>
       <script>
         window.onload = function() {
                         $(document).ready(function() {
                             $('.img-slide').slick({
-                                slidesToShow: 1,
-                                slidesToScroll:1,
+                                slidesToShow: 2,
+                                slidesToScroll: 1,
                                 infinite: true,
                                 arrows: true,
-                                centerMode: true,
+                                centerMode: false,
                                 cssEase: 'linear',
                                 accessibility: true,
                                 autoplay: true,
@@ -97,18 +116,17 @@
                                 vertical: true,
                             });
                             $('.img-slide-small').slick({
-                            slidesToShow: 1,
-                            slidesToScroll:1,
-                            infinite: true,
-                            arrows: true,
-                            cssEase: 'linear',
-                            accessibility: true,
-                            autoplay: true,
-                            autoplaySpeed: 900,
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+                                infinite: true,
+                                arrows: true,
+                                cssEase: 'linear',
+                                accessibility: true,
+                                autoplay: true,
+                                autoplaySpeed: 900,
                             });
                         });
                     }
-                    
       </script>
 
       @foreach ($productDetail as $row)
@@ -155,8 +173,8 @@
               <i class="fa-solid fa-star text-warning"></i>
               5.0</span>
             @if (!$row->discount > 0)
-            <p style="font-size:3vw;font-size:3vh"><span class="card-text text-danger"> {{
-                number_format($row->cost) }}đ</span></p>
+            <p style="font-size:3vw;font-size:3vh"><span class="card-text text-danger">
+                {{ number_format($row->cost) }}đ</span></p>
             @else
             <p style="font-size:3vw;font-size:3vh">
               <span>
@@ -168,16 +186,24 @@
               </span>
             </p>
             @endif
-
+            <div class="number-control">
+              <div class="number-left me-2" id="buttonDown"></div>
+              <input type="number" name="number" value="1" min="1" class="number-quantity">
+              <div class="number-right ms-2" id="buttonUp"></div>
+            </div>
             <!-- Button trigger modal -->
-            @if ($row->count > 0)
-            <button type="button" style="width:150px ;margin-left:10px;margin-bottom:20px" id="cartSucess"
+            @if (!Auth::guard('customer')->check())
+            <button type="button" style="width:150px ;margin-left:10px;margin-bottom:20px" id="cartSuces"
               class="btn btn-danger mt-3">
-              <a style="text-decoration:none;color:white;font-size:2vw;font-size:2vh"
-                href="{{ route('user.add', ['id' => $row->idPro]) }}">
+              <a href="{{ route('user.login') }}" style="text-decoration:none;color:white;font-size:2vw;font-size:2vh">
                 Mua
               </a></button>
-
+            @elseif ($row->count > 0)
+            <button type="button" style="width:150px ;margin-left:10px;margin-bottom:20px" id="cartSucess"
+              class="btn btn-danger mt-3">
+              <a style="text-decoration:none;color:white;font-size:2vw;font-size:2vh">
+                Mua
+              </a></button>
             @else
             <button type="button" style="width:150px ;margin-left:10px;margin-bottom:20px;font-size:2vw;font-size:2vh"
               id="cartSucess" class="btn btn-danger mt-3">
@@ -209,27 +235,31 @@
         <!--  Bình luận sản phẩm -->
         <div class="comment container mt-3">
           <!--           <iframe style="width:100%" src="../../Project-petcare-php/user/Views/Comment.php"></iframe>
-     -->
+         -->
           @if (Auth::guard('customer')->check())
           <!-- box comment -->
-          <form method="post" action="{{ route('user.comment',['id'=>$row->idPro]) }}">
-            @csrf
-            @method('post')
+          <form>
+            {{-- @csrf
+            @method('post') --}}
+            <input value="{{ $row->idPro }}" name="idProductComment" hidden id="idProductComment">
+            <input id="idUserComment" value="{{ Auth::guard('customer')->user()->id }}" hidden>
             <input placeholder="Nhập bình luận của bạn"
               style="width:100%;border-radius:10px;height:70px;font-size:2vw;font-size:2vh" name="commentTitle"
               id="commentTitle" required>
             <div>
-              <button class="btn btn-primary mt-3 float-end" type="submit" style="font-size:2vw;font-size:2vh"
+              <button class="btn btn-primary mt-3 float-end" type="button" style="font-size:2vw;font-size:2vh"
                 id="submitComment">Bình
                 luận</button>
             </div>
           </form>
           @else
-          <a style="font-size:2vw;font-size:2vh" href="{{ route('user.login') }}">Hãy đăng nhập để có thể bình luận</a>
+          <a style="font-size:2vw;font-size:2vh" href="{{ route('user.login') }}">Hãy đăng nhập để có
+            thể bình luận</a>
           @endif
           <!-- Danh sách các bình luận -->
           {{-- @if (Auth::guard('customer')->check()) --}}
-          <div style="width:100%;height:300px;margin-top:20px;overflow-y:auto;overflow-x:hidden;font-size:20px">
+          <div style="width:100%;height:500px;margin-top:20px;overflow-y:auto;overflow-x:hidden;font-size:20px"
+            id="list-comment">
             <div class="list-comment mt-5" style="background-color:#EEEEEE;border-radius:6px" width="80%">
               @foreach ($comment as $cmt)
               <div class="d-flex mt-3 ms-5">
@@ -242,13 +272,12 @@
                     $cmt->getNameUser($cmt->idCus) }}</span>
                   <span style="font-weight:lighter;font-size:2vw;font-size:2vh" class="comment-time">{{ $cmt->created_at
                     }}</span>
-                  <div style="margin-left:40px;font-size:2vw;font-size:2vh" class="noidung">{{ $cmt->title }}</div>
+                  <div style="margin-left:40px;font-size:2vw;font-size:2vh" class="noidung">
+                    {{ $cmt->title }}</div>
                   <br>
                 </div>
               </div>
               @endforeach
-
-
             </div>
             <!-- end danh sách bình luận -->
           </div>
@@ -319,8 +348,26 @@
       </div>
       <script>
         $(document).ready(function() {
+                            var CurrentCount = parseInt($(".number-quantity").val());
+                            // tăng số lượng
+                            $("#buttonUp").click(function(){
+                              if(CurrentCount <= 1){
+                                CurrentCount = 1
+                              }
+                              CurrentCount +=1;
+                              $(".number-quantity").val(CurrentCount);
+                            })
+                            // giảm số lượng
+                            $("#buttonDown").click(function(){
+                            CurrentCount = CurrentCount - 1;
+                            if(CurrentCount <= 1 ){
+                              $(".number-quantity").val("1");
+                            }
+                            else{
+                              $(".number-quantity").val(CurrentCount);
+                            }
+                            })
                             $(".comment").hide();
-
                             $("#comment").click(function() {
                                 $(".thongtinchitiet").hide();
                                 $(".comment").show();
@@ -328,6 +375,86 @@
                             $("#mota").click(function() {
                                 $(".thongtinchitiet").show();
                                 $(".comment").hide();
+                            })
+                            // comment
+                            $("#submitComment").click(function(){
+                              var commentTitle = $("#commentTitle").val();
+                              var userId = $("#idUserComment").val();
+                              var productId = $("#idProductComment").val();
+                              var url = "/product/detail/" + productId;
+                              console.log(commentTitle,userId,productId);
+                              $.ajax({
+                                url: url,
+                                type:"POST",
+                                data:{
+                                  commentTitle: commentTitle,
+                                  _token: $('meta[name="csrf-token"]').attr('content')
+                                },
+                                success: function(response) {
+                                // thêm mới bình luận vào danh sách bình luận
+                                var newComment = `
+                                <div class="d-flex mt-3 ms-5">
+                                  <div
+                                    style="margin-bottom:20px; box-shadow: 2px 2px 2px gray; margin-top:10px; background-color:#FFFFFF; border-radius:10px; width:60%">
+                                    <span style="font-weight:bold; font-size:1.5vw; color:blue;font-size:1.5vh" class="user-name">${response.user_name}</span>
+                                    <span style="font-weight:lighter; font-size:2vw;font-size:2vh" class="comment-time">${response.created_at}</span>
+                                    <div style="margin-left:40px; font-size:2vw;font-size:2vh" class="noidung">${response.commentTitle}</div>
+                                    <br>
+                                  </div>
+                                </div>
+                                `;
+                                $(".list-comment").append(newComment);
+                                document.getElementById("commentTitle").value = "";
+                                // tự động tua xuống comment mới nhất
+                                const listComment = document.getElementById("list-comment");
+                                listComment.scrollTo({
+                                top: listComment.scrollHeight,
+                                behavior: 'smooth' // Cuộn mượt
+                                });
+                                },
+                                error: function(response){
+                                  console.log(response);
+                                }
+                              })
+                            })
+                            $("#cartSucess").click(function(){
+                              var CurrentCount = parseInt($(".number-quantity").val());
+                              var productId = parseInt($("#idPro").text());
+                              var url = "/cart/addPro/" + productId;
+                              console.log(CurrentCount,productId,url)
+                              $.ajax({
+                                url: url,
+                                type: "POST",
+                                data:{
+                                  idPro: productId,
+                                  count: CurrentCount,
+                                  _token: $('meta[name="csrf-token"]').attr('content')
+                                },
+                                success: function(response){
+                                  // console.log(response)
+                                  if(response.success && response.success !== ""){
+                                    $.toast({
+                                    heading: 'Thông báo',
+                                    text: response.success,
+                                    showHideTransition: 'slide',
+                                    icon: 'success',
+                                    position: 'bottom-right'
+                                    })
+                                  }
+                                  else if(response.error !==""){
+                                    $.toast({
+                                    heading: 'Thông báo',
+                                    text: "Có lỗi xảy ra !",
+                                    showHideTransition: 'slide',
+                                    icon: 'error',
+                                    position: 'bottom-right'
+                                    })
+                                  }
+                                },
+                                error: function(){
+                                  console.log("có lỗi xảy ra")
+                                }
+                              })
                             })
                         })
       </script>

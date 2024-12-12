@@ -95,8 +95,7 @@ class Voucher extends Model
         $name = Voucher::find($id);
         return $name->time_end;
     }
-    public function getDiscount($id)
-    {
+    public function getDiscount($id){
         $name = Voucher::find($id);
         return $name->discount;
     }

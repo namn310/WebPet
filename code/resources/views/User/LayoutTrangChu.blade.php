@@ -15,6 +15,7 @@ $product = product::select()->get();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Pet Care</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/PetCARE.png') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
@@ -34,6 +35,7 @@ $product = product::select()->get();
     {{--
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"> --}}
     <script src="{{ asset('assets/slick-carousel/slick/slick.min.js') }}"></script>
+    
 </head>
 
 <body>
@@ -64,8 +66,11 @@ $product = product::select()->get();
                 </div>
             </div>
         </div>
-        <div class="row navbar navbar-dark bg-white shadow">
-            <nav class="navbar navbar-expand-xl d-flex flex-column ">
+        {{-- <div class="d-flex justify-content-center mt-2" class="collapse-down">
+            <i class="fa-solid fa-angle-down fa-xl"></i>
+        </div> --}}
+        <div class="row navbar navbar-dark bg-white shadow navbarSlideToggle">
+            <nav class="navbar navbar-expand-xl d-flex flex-column">
                 <div class="container-fluid d-flex justify-content-around">
                     <div class="nav-brand ps-2 text-center d-flex align-items-center flex-wrap" style="">
                         <img class="img-fluid" style="width:80px" src="{{ asset('assets/img/PetCARE.png') }}">
@@ -194,6 +199,9 @@ $product = product::select()->get();
                 </div>
             </nav>
         </div>
+        <div class="d-flex justify-content-center mt-2">
+            <button class="btn btn-secondary" id="collapseButton"><i class="fa-solid fa-angle-down fa-xl"></i></button>
+        </div>
         <div>
             <div class="row my-2" style="overflow-y:hidden">
                 <div class="col-4"></div>
@@ -232,6 +240,10 @@ $product = product::select()->get();
     <script>
         //searchProduct
         $(document).ready(function() {
+            $(".collapse-down").hide();
+            $("#collapseButton").click(function(){
+                $(".navbarSlideToggle").slideToggle();
+            })
             $("#search_pro").click(function() {
                 $(".listPro").toggle();
                 $(document).click(function(){
@@ -278,20 +290,6 @@ $product = product::select()->get();
             flex: 3;
         }
     </style>
-
-    <!--
-<div class="menu-phone" >
-    <div><a href="index1.html">Trang chủ </a></div>
-    <div><a href="about.html">Giới thiệu  </a></div>
-    <div><a href="service.html">Dịch vụ </a></div>
-    <div><a href="product.html">Sản phẩm </a></div>
-    <div><a href="booking.html">Đặt lịch </a></div>
-    <div><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Giỏ hàng</a></div>
-</div>-->
-    <!--header end-->
-
-    <!--footer-->
-
     <div class="container-fluid d-flex justify-content-around flex-wrap bg-dark mt-5">
         <div class="footer1 d-flex align-items-center flex-column p-3">
             <h1 class="mb-3 mt-4  text-capitalize" style="color:#F7A98F;font-size:4vw">PetCare</h1>
