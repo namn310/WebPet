@@ -451,8 +451,8 @@
                                     })
                                   }
                                 },
-                                error: function(){
-                                  console.log("có lỗi xảy ra")
+                                error: function(e){
+                                  console.log(e)
                                 }
                               })
                             })

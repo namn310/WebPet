@@ -239,7 +239,7 @@
                     {{ $product->cost - ($product->cost * $product->discount) / 100 }}
                   </p>
                   @endif
-                  <a href="{{ route('user.add', ['id' => $product->idPro]) }}"
+                  <a href="{{ route('user.productDetail', ['id' => $product->idPro]) }}"
                     style="text-decoration:none;color:white"><button type="submit"
                       style="position:absolute;top:0;right:0" class="btn btn-white shadow-sm rounded-pill"><i
                         style="color:black" class="fa-solid fa-cart-shopping text-danger"></i></button></a>

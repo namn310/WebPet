@@ -117,7 +117,7 @@
 
 
                         <div class="cart" style="position:absolute;top:0px">
-                            <a href="{{ route('user.add', ['id' => $row->idPro]) }}"
+                            <a href="{{ route('user.productDetail', ['id' => $row->idPro]) }}"
                                 style="text-decoration:none"><button class=" btn btn-white shadow-sm rounded-pill"
                                     id="buy" class="btn btn-danger " data-bs-toggle="modal"
                                     data-bs-target="#modalbuyproduct"><i
