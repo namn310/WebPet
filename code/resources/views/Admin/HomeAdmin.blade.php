@@ -6,12 +6,12 @@
   @if (session('alert'))
   <script>
     $.toast({
-                            heading: 'Thông báo',
-                            text: '{{ session('alert') }}',
-                            showHideTransition: 'slide',
-                            icon: 'success',
-                            position: 'top-center'
-                            })
+                    heading: 'Thông báo',
+                    text: '{{ session('alert') }}',
+                    showHideTransition: 'slide',
+                    icon: 'success',
+                    position: 'top-center'
+                })
   </script>
   @endif
   <div class="main-content mt-4">
@@ -32,10 +32,11 @@
                   <h4 class="mb-0">{{ $orderTotal }}</h4>
                 </div>
               </div>
+              {{--
               <hr class="dark horizontal my-0">
               <div class="card-footer p-3">
                 <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>so với tuần trước</p>
-              </div>
+              </div> --}}
             </div>
           </div>
           <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -50,11 +51,12 @@
                   <h4 class="mb-0">{{ $productOutTotal }}</h4>
                 </div>
               </div>
+              {{--
               <hr class="dark horizontal my-0">
               <div class="card-footer p-3">
-                {{-- <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than
-                  lask month</p> --}}
-              </div>
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than
+                  lask month</p>
+              </div> --}}
             </div>
           </div>
           <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -65,14 +67,15 @@
                   <i class="fa-solid fa-user-check" style="color: #74C0FC;"></i>
                 </div>
                 <div class="text-end pt-1">
-                  <p class="text-sm mb-0 text-capitalize">Tổng số khách hàng</p>
+                  <p class="text-sm mb-0 text-capitalize">Tổng khách hàng truy cập</p>
                   <h4 class="mb-0">{{ $CustomerTotal }}</h4>
                 </div>
               </div>
+              {{--
               <hr class="dark horizontal my-0">
               <div class="card-footer p-3">
                 <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> so với hôm qua</p>
-              </div>
+              </div> --}}
             </div>
           </div>
           <div class="col-xl-3 col-sm-6">
@@ -89,7 +92,8 @@
               </div>
               <hr class="dark horizontal my-0">
               <div class="card-footer p-3">
-                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>so với hôm qua</p>
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>so
+                  với hôm qua</p>
               </div>
             </div>
           </div>
@@ -186,7 +190,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($orderDetail as $row )
+                      @foreach ($orderDetail as $row)
                       <tr>
                         <td>
                           {{ $order->getCus($row->idCus) }}
@@ -197,7 +201,7 @@
                         <td class="align-middle text-center text-sm">
                           {{ $row->thanhtoan }}
                         </td>
-                        @if ($row->status>0)
+                        @if ($row->status > 0)
                         <td class="align-middle text-success">
                           Đơn hàng đã được xác nhận
                         </td>
@@ -213,11 +217,61 @@
                 </div>
               </div>
             </div>
+            {{-- danh sách sản phẩm hot --}}
             <div class="card w-100" style="border:1px solid black">
               <div class="card-header pb-0">
                 <div class="row">
                   <div class="col-lg-6 col-7">
-                    <h4 class="text-black">Sản phẩm hot</h4>
+                    <h4 class="text-black">Sản phẩm HOT</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body px-0 pb-2">
+                <div class="table-responsive">
+                  <table class="table align-items-center mb-0">
+                    <thead class="table-primary">
+                      <tr>
+                        <th class=" text-xxs font-weight-bolder opacity-7">
+                          Tên sản phẩm</th>
+                        <th class="ps-2">
+                          Hình ảnh</th>
+                        <th class="text-center text-xxs font-weight-bolder opacity-7">
+                          Giảm giá</th>
+                        <th class="text-center text-xxs font-weight-bolder opacity-7">
+                          Số lượng mua</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($product2 as $row)
+                      <tr>
+                        <td>
+                          {{ $row->namePro }}
+                        </td>
+                        <td>
+                          <img style="max-width:100px;max-height:100px"
+                            src="{{ asset('assets/img-add-pro/' . $productImg->getImgProduct($row->idPro)) }}">
+                        </td>
+                        @if ($row->discount > 0)
+                        <td class="align-middle text-center text-sm">
+                          {{ $row->discount }}%</td>
+                        @else
+                        <td></td>
+                        @endif
+                        <td class="align-middle text-center text-sm">{{ $row->Total }}
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            {{-- danh sách sản phẩm bán chậm --}}
+            <div class="card w-100" style="border:1px solid black">
+              <div class="card-header pb-0">
+                <div class="row">
+                  <div class="col-lg-6 col-7">
+                    <h4 class="text-black">Sản phẩm bán chậm</h4>
                   </div>
                 </div>
               </div>
@@ -237,21 +291,23 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($product as $row )
+                      @foreach ($product4 as $row)
                       <tr>
                         <td>
                           {{ $row->namePro }}
                         </td>
                         <td>
                           <img style="max-width:100px;max-height:100px"
-                            src="{{ asset('assets/img-add-pro/'.$productImg->getImgProduct($row->idPro)) }}">
+                            src="{{ asset('assets/img-add-pro/' . $productImg->getImgProduct($row->idPro)) }}">
                         </td>
-                        @if ($row->discount >0)
-                        <td class="align-middle text-center text-sm">{{ $row->discount }}%</td>
+                        @if ($row->discount > 0)
+                        <td class="align-middle text-center text-sm">
+                          {{ $row->discount }}%</td>
                         @else
                         <td></td>
                         @endif
-                        <td class="align-middle text-center text-sm">{{ $row->count }}</td>
+                        <td class="align-middle text-center text-sm">{{ $row->count }}
+                        </td>
                       </tr>
                       @endforeach
                     </tbody>
@@ -271,31 +327,35 @@
               </div>
               <div class="card-body p-3">
                 <div class="timeline timeline-one-side" style="height:300px;overflow:auto">
-                  @foreach ($CustomerNotice as $row )
+                  @foreach ($CustomerNotice as $row)
                   <div class="timeline-block mb-3">
                     <span class="timeline-step">
                       <i class="material-icons text-success text-gradient">thông báo</i>
                     </span>
                     <div class="timeline-content">
-                      <h5 class="text-dark text-sm font-weight-bold mb-0">{{ $row->name }}
+                      <h5 class="text-dark text-sm font-weight-bold mb-0">
+                        {{ $row->name }}
                       </h5>
                       <p>Đã đăng ký tài khoản thành công</p>
-                      <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{ $row->created_at }}
+                      <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">
+                        {{ $row->created_at }}
                       </p>
                     </div>
                   </div>
                   <hr>
                   @endforeach
-                  @foreach ($OrderNotice as $row )
+                  @foreach ($OrderNotice as $row)
                   <div class="timeline-block mb-3">
                     <span class="timeline-step">
                       <i class="material-icons text-success text-gradient">thông báo</i>
                     </span>
                     <div class="timeline-content">
-                      <h5 class="text-dark text-sm font-weight-bold mb-0">{{ $order->getCus($row->idCus) }}
+                      <h5 class="text-dark text-sm font-weight-bold mb-0">
+                        {{ $order->getCus($row->idCus) }}
                       </h5>
                       <p>Đã đặt hàng</p>
-                      <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{ $row->created_at }}
+                      <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">
+                        {{ $row->created_at }}
                       </p>
                     </div>
                   </div>
@@ -312,7 +372,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
-    
+
             new Chart(ctx, {
                 type: "bar",
                 data: {
@@ -390,10 +450,10 @@
                     },
                 },
             });
-    
-    
+
+
             var ctx2 = document.getElementById("chart-line").getContext("2d");
-    
+
             new Chart(ctx2, {
                 type: "line",
                 data: {
@@ -412,7 +472,7 @@
                         fill: true,
                         data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
                         maxBarThickness: 6
-    
+
                     }],
                 },
                 options: {
@@ -474,9 +534,9 @@
                     },
                 },
             });
-    
+
             var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
-    
+
             new Chart(ctx3, {
                 type: "line",
                 data: {
@@ -494,7 +554,7 @@
                         fill: true,
                         data: [50, 40, 300, 220, 300, 250, 400, 230, 300],
                         maxBarThickness: 6
-    
+
                     }],
                 },
                 options: {
@@ -556,8 +616,6 @@
                     },
                 },
             });
-    
   </script>
 </div>
-
 @endsection

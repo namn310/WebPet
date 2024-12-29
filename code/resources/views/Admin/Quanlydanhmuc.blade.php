@@ -25,8 +25,9 @@
                     @endif
                     <div class="button-function d-flex justify-content-between mt-3 mb-4" style="width:70%">
 
-                        <button style="font-size:2vw;font-size:2vh" id="uploadfile" class="btn btn-success" type="button" title="Nhập"><a id="addnhanvien"
-                                href="{{ route('admin.categoryForm') }}"><i class="fas fa-plus"></i>>
+                        <button style="font-size:2vw;font-size:2vh" id="uploadfile" class="btn btn-success"
+                            type="button" title="Nhập"><a id="addnhanvien" href="{{ route('admin.categoryForm') }}"><i
+                                    class="fas fa-plus"></i>>
                                 Tạo mới danh mục</a></button>
 
                     </div>
@@ -38,8 +39,8 @@
 
 
 
-                    <table style="font-size:2vw;font-size:2vh" class="table table-hover table-bordered text-center" cellpadding="0" cellspacing="0"
-                        border="0" id="sampleTable">
+                    <table style="font-size:2vw;font-size:2vh" class="table table-hover table-bordered text-center"
+                        cellpadding="0" cellspacing="0" border="0" id="sampleTable">
                         <thead>
 
                             <tr class="table-primary">
@@ -96,8 +97,9 @@
                                         </div>
                                     </div>
                                     {{-- button sửa danh mục --}}
-                                    <button style="font-size:2vw;font-size:2vh" class="btn btn-success btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                        data-bs-toggle="modal" data-bs-target="#update{{ $row->idCat }}">
+                                    <button style="font-size:2vw;font-size:2vh" class="btn btn-success btn-sm edit"
+                                        type="button" title="Sửa" id="show-emp" data-bs-toggle="modal"
+                                        data-bs-target="#update{{ $row->idCat }}">
                                         <i class="fas fa-edit"></i>
                                     </button>
 
@@ -107,7 +109,8 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 style="font-size:2vw;font-size:2vh" class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
+                                                    <h1 style="font-size:2vw;font-size:2vh" class="modal-title fs-5"
+                                                        id="exampleModalLabel">Thông báo</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
@@ -117,15 +120,17 @@
                                                     @method('PUT')
                                                     <div class="modal-body">
                                                         <p>Tên danh mục</p>
-                                                        <input style="font-size:2vw;font-size:2vh" class="form-control" type='text' name='nameCat'
-                                                            value="{{ $row->name }}">
+                                                        <input style="font-size:2vw;font-size:2vh" class="form-control"
+                                                            type='text' name='nameCat' value="{{ $row->name }}">
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button style="font-size:2vw;font-size:2vh" type="button" class="btn btn-danger"
+                                                        <button style="font-size:2vw;font-size:2vh" type="button"
+                                                            class="btn btn-danger"
                                                             data-bs-dismiss="modal">Close</button>
                                                         @csrf
                                                         @method('PUT')
-                                                        <button style="font-size:2vw;font-size:2vh" type="submit" class="btn btn-primary"><a
+                                                        <button style="font-size:2vw;font-size:2vh" type="submit"
+                                                            class="btn btn-primary"><a
                                                                 style="text-decoration:none;color:white">Đồng
                                                                 ý</a></button>
                                                     </div>
@@ -142,6 +147,7 @@
                     </table>
                 </div>
             </div>
+            {{ $category->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </div>

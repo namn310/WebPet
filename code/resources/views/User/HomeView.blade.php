@@ -87,7 +87,7 @@
     <!--Hot product-->
     <div class="d-flex flex-column justify-content-center align-items-center mb-3">
         <span class="service text-center">
-            <h3 id="hotProductText">Hot Product</h3>
+            <h3 id="hotProductText">Sản Phẩm Hot</h3>
         </span>
         {{-- <i class="fa-solid fa-heart" style="color: #de2121;align-items: center;"></i> --}}
     </div>
@@ -117,7 +117,7 @@
 
 
                         <div class="cart" style="position:absolute;top:0px">
-                            <a href="{{ route('user.productDetail', ['id' => $row->idPro]) }}"
+                            <a href="{{ route('user.add', ['id' => $row->idPro]) }}"
                                 style="text-decoration:none"><button class=" btn btn-white shadow-sm rounded-pill"
                                     id="buy" class="btn btn-danger " data-bs-toggle="modal"
                                     data-bs-target="#modalbuyproduct"><i

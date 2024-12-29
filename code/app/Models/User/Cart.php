@@ -106,12 +106,18 @@ class Cart extends Model
         //dd($idLatestOrder);
         foreach (session('cart') as $product) {
             $idPro = $product['idPro'];
+            // thêm dữ liệu vào bảng orderdetail
             $orderDetail = OrderDetail::create([
                 'number' => $product['count'],
                 'idPro' => $idPro,
                 'price' => $product['cost'],
                 'idOrder' => $idLatestOrder
             ]);
+            // giảm số lượng sản phẩm
+            $updatePro = product::find($idPro);
+            $updatePro->count = $updatePro->count - $product['count'];
+            // dd($pro->count - $row->number);
+            $updatePro->update();
         }
         // Dùng voucher xong thì giảm số lượng voucher;
         if ($request->input('idVoucher')) {

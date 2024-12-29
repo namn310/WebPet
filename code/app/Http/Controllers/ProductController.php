@@ -20,7 +20,14 @@ class ProductController extends Controller
         $product = product::orderBy('idPro', 'desc')->paginate(8);
         // $product->sortBy('idPro')
         $category = category::all();
-        return view('Admin.Quanlysanpham', ['product' => $product, 'category' => $category]);
+        return view('Admin.Quanlysanpham', ['product' => $product, 'category' => $category, 'categorySelect' => '']);
+    }
+    public function getProductByCategory($id)
+    {
+        $product = product::where('idCat', $id)->orderBy('idPro', 'desc')->paginate(8);
+        // $product->sortBy('idPro')
+        $category = category::all();
+        return view('Admin.Quanlysanpham', ['product' => $product, 'category' => $category, 'categorySelect' => $id]);
     }
     /**
      * Show the form for creating a new resource.

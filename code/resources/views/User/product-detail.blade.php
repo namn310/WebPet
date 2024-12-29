@@ -86,7 +86,7 @@
   }
 </style>
 <script>
-  $(document).ready(function() {
+  $(document).ready(function() {}
             var listImage = document.querySelectorAll(".list-img");
             listImage.forEach(img => {
                 var a = $(img).attr('src');
@@ -164,6 +164,9 @@
             <p style="font-size:2vw;font-size:2vh"><strong>Mã sản phẩm : </strong>
               {{ $row->idPro }}
             </p>
+            <p style="font-size:2vw;font-size:2vh"><strong>Số lượng khả dụng : </strong>
+              {{ $row->count }}
+            </p>
             <p style="font-size:2vw;font-size:2vh"><strong>Lượt mua: </strong>324</p>
             <span class="rating secondary-font" style="font-size:3vw;font-size:3vh">
               <i class="fa-solid fa-star text-warning"></i>
@@ -188,7 +191,7 @@
             @endif
             <div class="number-control">
               <div class="number-left me-2" id="buttonDown"></div>
-              <input type="number" name="number" value="1" min="1" class="number-quantity">
+              <input type="number" name="number" value="1" min="1" max="{{ $row->count }}" class="number-quantity">
               <div class="number-right ms-2" id="buttonUp"></div>
             </div>
             <!-- Button trigger modal -->
@@ -349,6 +352,9 @@
       <script>
         $(document).ready(function() {
                             var CurrentCount = parseInt($(".number-quantity").val());
+                            $(".number-quantity").change(function(){
+                               CurrentCount = parseInt($(".number-quantity").val());
+                            })
                             // tăng số lượng
                             $("#buttonUp").click(function(){
                               if(CurrentCount <= 1){
@@ -444,15 +450,15 @@
                                   else if(response.error !==""){
                                     $.toast({
                                     heading: 'Thông báo',
-                                    text: "Có lỗi xảy ra !",
+                                    text: response.error,
                                     showHideTransition: 'slide',
                                     icon: 'error',
                                     position: 'bottom-right'
                                     })
                                   }
                                 },
-                                error: function(e){
-                                  console.log(e)
+                                error: function(){
+                                  console.log("có lỗi xảy ra")
                                 }
                               })
                             })

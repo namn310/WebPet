@@ -18,7 +18,7 @@
 @if (session('notice'))
 <script>
     $.toast({
-                heading: 'Success',
+                heading: 'Thông báo',
                 text: '{{ session('notice') }}',
                 showHideTransition: 'slide',
                 icon: 'success',
@@ -29,10 +29,21 @@
 @if (session('error'))
 <script>
     $.toast({
-                heading: 'Error',
+                heading: 'Thông báo',
                 text: '{{ session('error') }}',
                 showHideTransition: 'slide',
                 icon: 'error',
+                position: 'bottom-right'
+            })
+</script>
+@endif
+@if (session('status'))
+<script>
+    $.toast({
+                heading: 'Thông báo',
+                text: '{{ session('status') }}',
+                showHideTransition: 'slide',
+                icon: 'success',
                 position: 'bottom-right'
             })
 </script>
@@ -124,9 +135,51 @@
                                                                 toán: <span style="font-weight:bold">
                                                                     {{ $order->thanhtoan }}</span> </h6>
                                                             @if ($order->status == 0)
-                                                            <div class="text-end"><button class="btn btn-danger m-2">Chờ
+                                                            <div class="text-end"><button
+                                                                    class="btn btn-warning m-2">Chờ
                                                                     xác
                                                                     nhận</button> </div>
+                                                            <div><button class="btn btn-danger cancel-order"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#cancel_order{{ $order->id }}">Hủy
+                                                                    đơn</button>
+                                                            </div>
+                                                            {{-- modal thông báo xác nhận xóa đơn hàng --}}
+                                                            <div class="modal fade" id="cancel_order{{ $order->id }}"
+                                                                tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h1 style="font-size:1.3vh;font-size:1.3vw"
+                                                                                class="modal-title fs-5"
+                                                                                id="exampleModalLabel">Thông
+                                                                                báo
+                                                                            </h1>
+                                                                            <button type="button" class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body"
+                                                                            style="font-size:1.3vh;font-size:1.3vw">
+                                                                            Bạn có muốn hủy đơn hàng này không ?
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-danger"
+                                                                                data-bs-dismiss="modal"
+                                                                                style="font-size:1.3vh;font-size:1.3vw">Đóng</button>
+
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary"> @csrf<a
+                                                                                    href="{{ route('user.deleteOrder', ['id' => $order->id]) }}"
+                                                                                    style="text-decoration:none;color:white;font-size:1.3vh;font-size:1.3vw">Đồng
+                                                                                    ý</a></button>
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             @else
                                                             <div class="text-end"><button
                                                                     class="btn btn-success m-2">Đơn hàng
@@ -280,9 +333,6 @@
             </div>
         </div>
     </ul>
-
-
-
     <style>
         @media (min-width: 1025px) {
             .h-custom {

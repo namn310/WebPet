@@ -128,11 +128,11 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a style="font-size:1.5vw;font-size:1.5vh" class="nav-link " href="{{ route('admin.staff') }}">
                     <i class="fa-solid fa-users-gear"></i><span>Quản lý nhân viên</span>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="nav-item">
                 <a style="font-size:1.5vw;font-size:1.5vh" class="nav-link " href="{{ route('admin.product') }}">

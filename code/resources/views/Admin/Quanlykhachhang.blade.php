@@ -7,13 +7,11 @@
         <div class="col-md-12">
             <div class="tile">
                 <div class="tile-body">
-
                     <div class="search mt-4 mb-4 input-group" style="width:50%">
                         <button style="font-size:2vw;font-size:2vh" class="input-group-text btn btn-success"><i
                                 class="fa-solid fa-magnifying-glass"></i></button>
                         <input class="form-control" type="text" id="searchCustomer">
                     </div>
-
                     <table style="font-size:2vw;font-size:2vh"
                         class="table table-hover table-responsive table-bordered text-center" cellpadding="0"
                         cellspacing="0" border="1" id="sampleTable">
@@ -33,24 +31,16 @@
                                 <td>{{ $row->name }}</td>
                                 <td>{{ $row->phone }}</td>
                                 <td>{{ $row->email }}</td>
-
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
+            {{ $customer->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </div>
-
-
-
-<!-- ======= Footer ======= -->
-
-
-
-
 <script>
     $(document).ready(function() {
         $("#searchCustomer").on("keyup", function() {

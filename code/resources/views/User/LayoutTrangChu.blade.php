@@ -35,7 +35,7 @@ $product = product::select()->get();
     {{--
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"> --}}
     <script src="{{ asset('assets/slick-carousel/slick/slick.min.js') }}"></script>
-    
+
 </head>
 
 <body>
@@ -296,7 +296,7 @@ $product = product::select()->get();
             <p class="text-white" style="font-size: 1.2vw">Giờ hoạt động: 8AM-10PM</p>
         </div>
         <div class="footer2 mt-3 text-white d-flex flex-column justify-content-between p-3">
-            <h3 style="font-size: 2vw">Get in touch</h3>
+            <h3 style="font-size: 2vw">Liên hệ</h3>
             <span>
                 <h6><i class="fa-solid fa-envelope-circle-check fa-lg me-3"
                         style="color: #ffffff;font-size:2vw"></i>petcare@gmail.com
@@ -313,7 +313,7 @@ $product = product::select()->get();
             </span>
         </div>
         <div class="footer3 d-flex text-white flex-column mt-3 p-3 text-center">
-            <h3 style="font-size: 2vw">Popular links</h3>
+            <h3 style="font-size: 2vw">Các trang cá nhân</h3>
             <a href="#" class="mb-4"><i class="fa-brands fa-facebook fa-lg me-3 "
                     style="color: #ffffff;font-size:2vw"></i></a>
             <a href="#" class="mb-4"><i class="fa-brands fa-instagram fa-lg me-3"

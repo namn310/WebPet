@@ -56,8 +56,8 @@
                 @endif
 
                 <td>
-                  <a style="color:white;text-decoration:none"> <button style="font-size:2vw;font-size:2vh" data-bs-toggle="modal"
-                      data-bs-target="#deleteOrder{{ $order->id }}" class="btn btn-danger"> <i
+                  <a style="color:white;text-decoration:none"> <button style="font-size:2vw;font-size:2vh"
+                      data-bs-toggle="modal" data-bs-target="#deleteOrder{{ $order->id }}" class="btn btn-danger"> <i
                         class="bi bi-trash"></i></button></a>
                   <!-- Modal xóa order -->
                   <div class="modal fade" id="deleteOrder{{ $order->id }}" tabindex="-1"
@@ -81,8 +81,9 @@
                     </div>
                   </div>
 
-                  <a> <button style="font-size:2vw;font-size:2vh" data-bs-toggle="modal" data-bs-target="#delivery{{ $order->id }}"
-                      class="btn btn-success"><i class="fa-solid fa-truck"></i></button></a>
+                  <a> <button style="font-size:2vw;font-size:2vh" data-bs-toggle="modal"
+                      data-bs-target="#delivery{{ $order->id }}" class="btn btn-success"><i
+                        class="fa-solid fa-truck"></i></button></a>
                   <!-- Modal giao hàng -->
 
                   <div class="modal fade" id="delivery{{ $order->id }}" tabindex="-1"
@@ -106,8 +107,9 @@
                     </div>
                   </div>
 
-                  <button style="font-size:2vw;font-size:2vh" class="btn btn-primary"><a style="color:white;text-decoration:none"
-                      href="{{ route('admin.detail',['id'=>$order->id]) }}">Xem </a></button>
+                  <button style="font-size:2vw;font-size:2vh" class="btn btn-primary"><a
+                      style="color:white;text-decoration:none" href="{{ route('admin.detail',['id'=>$order->id]) }}">Xem
+                    </a></button>
 
                 </td>
               </tr>
@@ -117,12 +119,13 @@
           </table>
           <!-- End Table with stripped rows -->
 
-          <ul class="pagination">
-            <li style="font-size:2vw;font-size:2vh" class="page-item disabled"><a href="#" class="page-link">Trang</a></li>
-          </ul>
+          {{-- <ul class="pagination">
+            <li style="font-size:2vw;font-size:2vh" class="page-item disabled"><a href="#" class="page-link">Trang</a>
+            </li>
+          </ul> --}}
         </div>
       </div>
-
+      {{ $Order->links('pagination::bootstrap-5') }}
     </div>
   </div>
 </section>

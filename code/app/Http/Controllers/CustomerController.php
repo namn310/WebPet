@@ -12,7 +12,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customer = Customer::all();
+        $customer = Customer::paginate(10);
         return view('Admin.Quanlykhachhang', ['customer' => $customer]);
     }
 

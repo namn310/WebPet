@@ -12,7 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = category::all();
+        $category = category::paginate(10);
         return view('Admin.Quanlydanhmuc')->with('category', $category);
     }
 

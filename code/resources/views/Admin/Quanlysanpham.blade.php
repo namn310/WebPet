@@ -22,20 +22,40 @@
                     @endif
                     <div class="button-function d-flex justify-content-between mt-3 mb-4" style="width:70%">
 
-                        <button style="font-size:2vw;font-size:2vh" id="uploadfile" class="btn btn-success btn-sm nhap-tu-file" type="button"
-                            title="Nhập"><a style="color:white" href="{{ route('admin.addForm') }}"><i
-                                    class="fas fa-plus"></i>>
+                        <button style="font-size:2vw;font-size:2vh" id="uploadfile"
+                            class="btn btn-success btn-sm nhap-tu-file" type="button" title="Nhập"><a
+                                style="color:white" href="{{ route('admin.addForm') }}"><i class="fas fa-plus"></i>>
                                 Tạo mới sản phẩm</a></button>
 
                     </div>
                     <div class="search mt-4 mb-4 input-group" style="width:50%">
-                        <button style="font-size:2vw;font-size:2vh"  class="input-group-text btn btn-success"><i
+                        <button style="font-size:2vw;font-size:2vh" class="input-group-text btn btn-success"><i
                                 class="fa-solid fa-magnifying-glass"></i></button>
                         <input class="form-control" type="text" id="searchProduct">
                     </div>
-
+                    <div class="mt-2 mb-3">
+                        <select class="form-select" style="width:200px" onchange="window.location.href=this.value;">
+                            @if(isset($categorySelect) && $categorySelect == '')
+                            <option selected>
+                                Tất cả
+                            </option>
+                            @endif
+                            @foreach($category as $row)
+                            @if(isset($categorySelect) && $categorySelect == $row->idCat)
+                            <option selected value="{{
+                                    route('admin.productByCat',['id'=>$row->idCat]) }}"><a href="{{
+                                    route('admin.productByCat',['id'=>$row->idCat]) }}">{{ $row->name }} </a></option>
+                            @else
+                            <option value="{{
+                                    route('admin.productByCat',['id'=>$row->idCat]) }}"><a href="{{
+                                    route('admin.productByCat',['id'=>$row->idCat]) }}">{{ $row->name }} </a></option>
+                            @endif
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="table-responsive">
-                        <table style="font-size:2vw;font-size:2vh" class="table table-hover table-bordered " id="sampleTable">
+                        <table style="font-size:2vw;font-size:2vh" class="table table-hover table-bordered "
+                            id="sampleTable">
                             <thead>
                                 <tr class="table-success text-center">
                                     <th>Mã sản phẩm</th>
@@ -68,8 +88,12 @@
                                     @else
                                     <td><button class="btn btn-danger">Hết hàng</button></td>
                                     @endif
-                                    <td>{{ $row->cost }}</td>
+                                    <td>{{ number_format($row->cost) }}đ</td>
+                                    @if($row->discount > 0)
                                     <td>{{ $row->discount }}%</td>
+                                    @else
+                                    <td></td>
+                                    @endif
                                     @if ($row->hot > 0)
                                     <td><i class="fa-solid fa-check" style="color: #06e302;"></i></td>
                                     @else
@@ -77,13 +101,14 @@
                                     @endif
 
                                     <td class="table-td-center">
-                                        <a> <button style="font-size:2vw;font-size:2vh" class="btn btn-danger btn-sm trash" data-bs-toggle="modal"
+                                        <a> <button style="font-size:2vw;font-size:2vh"
+                                                class="btn btn-danger btn-sm trash" data-bs-toggle="modal"
                                                 data-bs-target="#delete-product{{ $row->idPro }}" type="button"
                                                 title="Xóa">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button></a>
-                                        <button style="font-size:2vw;font-size:2vh" class="btn btn-success btn-sm edit" type="button" title="Sửa"
-                                            id="show-emp">
+                                        <button style="font-size:2vw;font-size:2vh" class="btn btn-success btn-sm edit"
+                                            type="button" title="Sửa" id="show-emp">
                                             <a style="text-decoration:none;color:white"
                                                 href="{{ route('admin.changeProductView',['id'=>$row->idPro]) }}"><i
                                                     class="fas fa-edit"></i> </a>
@@ -127,17 +152,6 @@
         </div>
     </div>
 </div>
-
-
-<!--
-    
-  MODAL
--->
-
-
-<!-- ======= Footer ======= -->
-
-
 <script>
     $(document).ready(function() {
         $("#searchProduct").on("keyup", function() {

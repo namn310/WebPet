@@ -82,7 +82,7 @@
                             <div class="number-control">
                               <div class="number-left me-2" onclick="ChangeCount({{ $row['idPro'] }})"
                                 id="buttonDown{{ $row['idPro'] }}"></div>
-                              <input style="width:30%" type="number" name="idPro{{ $row['idPro'] }}"
+                              <input style="width:50%" type="number" name="idPro{{ $row['idPro'] }}"
                                 id="idPro{{ $row['idPro'] }}" min="1" value="{{ $row['count'] }}"
                                 required="không để trống">
                               <div onclick="ChangeCount({{ $row['idPro'] }})" class="number-right ms-2"
@@ -135,8 +135,7 @@
                         </div>
                         <div class="pt-2">
                           <h6 class="mb-0"><a href="{{ route('user.home') }}" class="text-body"><i
-                                class="fas fa-long-arrow-alt-left me-2"></i>Back
-                              to shop</a></h6>
+                                class="fas fa-long-arrow-alt-left me-2"></i>Trở về </a></h6>
 
                         </div>
                       </div>
@@ -145,7 +144,7 @@
                   @if(session('cart'))
                   <div class="col-lg-4 bg-body-tertiary">
                     <div class="p-5">
-                      <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                      <h3 class="fw-bold mb-5 mt-2 pt-1">Tổng thanh toán </h3>
                       <hr class="my-4">
                       <h5 class="text-uppercase mb-3">Voucher</h5>
 

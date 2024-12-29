@@ -30,11 +30,6 @@
                     </script>
                     @endif
                     <div class="button-function d-flex justify-content-between mt-3 mb-4" style="width:70%">
-                        {{--
-                        <button id="uploadfile" class="btn btn-success" type="button" title="Nhập"><a id="addnhanvien"
-                                href="{{ route('admin.categoryForm') }}"><i class="fas fa-plus"></i>>
-                                Tạo mới danh mục</a></button> --}}
-
                     </div>
                     <div class="search mt-4 mb-4 input-group" style="width:50%">
                         <button class="input-group-text btn btn-success"><i
@@ -44,8 +39,8 @@
 
 
 
-                    <table style="font-size:2vw;font-size:2vh" class="table table-hover table-bordered text-center" cellpadding="0" cellspacing="0"
-                        border="0" id="sampleTable">
+                    <table style="font-size:2vw;font-size:2vh" class="table table-hover table-bordered text-center"
+                        cellpadding="0" cellspacing="0" border="0" id="sampleTable">
                         <thead>
 
                             <tr class="table-primary">
@@ -73,8 +68,8 @@
                                 <td>{{ $row->email }}</td>
 
                                 <td class="table-td-center">
-                                    <button style="font-size:2vw;font-size:2vh" class="btn btn-danger btn-sm trash" data-bs-target="#delete{{ $row->id }}"
-                                        data-bs-toggle="modal" type="button">
+                                    <button style="font-size:2vw;font-size:2vh" class="btn btn-danger btn-sm trash"
+                                        data-bs-target="#delete{{ $row->id }}" data-bs-toggle="modal" type="button">
                                         <a style="color:white"> <i class="fas fa-trash-alt"></i></a>
                                     </button>
                                     <!-- Modal xóa -->
@@ -151,13 +146,6 @@
         </div>
     </div>
 </div>
-
-
-<!-- ======= Footer ======= -->
-
-
-
-
 <script>
     $(document).ready(function() {
         $("#searchNV").on("keyup", function() {

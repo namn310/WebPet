@@ -97,6 +97,8 @@ Route::group(['namespace' => 'User', 'prefix' => ''], function () {
             return view('VN_PAY.vnpay_refund');
         });
         Route::get('vn_pay/vnpay_return', [CartController::class, 'saveOrderVnpay'])->name('vnpay.saveOrderToDB');
+        // hủy đơn hàng
+        Route::get('orderUser/cancel/{id}', [OrderUserController::class, 'cancelOrder'])->name('user.deleteOrder');
     });
     //forget pass
     Route::get('forgetPass', [ForgetPasswordController::class, 'index'])->name('user.forgetPass');
@@ -164,6 +166,8 @@ Route::prefix('admin')->middleware('checkLogin::class')->group(function () {
     Route::get('logout', [UserController::class, 'logOut'])->name('admin.logout');
     //product
     Route::get('product', [ProductController::class, 'index'])->name('admin.product');
+    // lấy product theo danh mục
+    Route::get('product/category/{id}', [ProductController::class, 'getProductByCategory'])->name('admin.productByCat');
     Route::post('product/add', [ProductController::class, 'store'])->name('admin.createProduct');
     //load view form thêm mới sản phẩm
     Route::get('product/add', [ProductController::class, 'create'])->name('admin.addForm');

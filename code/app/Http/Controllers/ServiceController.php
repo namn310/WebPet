@@ -8,7 +8,6 @@ use Throwable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
-
 class ServiceController extends Controller
 {
     /**
@@ -16,7 +15,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $service = Service::all();
+        $service = Service::paginate(10);
         return view('Admin.Quanlydichvu', ['service' => $service]);
     }
 
@@ -67,7 +66,7 @@ class ServiceController extends Controller
     {
         $service = new Service();
         try {
-            $service->updateService($id,$request);
+            $service->updateService($id, $request);
         } catch (Throwable) {
             return redirect(route('admin.service'))->with('alert', 'Thay đổi thất bại');
         }

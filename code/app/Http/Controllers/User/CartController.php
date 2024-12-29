@@ -38,11 +38,15 @@ class CartController extends Controller
             if (Auth::guard('customer')->check()) {
                 $id = $request->input('idPro');
                 $count = $request->input('count');
-                // $product = product::find($id);
-                //xóa session
-                //session()->forget('cart');
-                $cart->cartAdd($id, $count);
-                return response()->json(['success' => "Thêm vào giỏ hàng thành công. Vui lòng kiểm tra giỏ hàng"]);
+                // kiểm tra xem số lượng sản phẩm có vượt quá số lượng sản phẩm trong kho hay không
+                $product = product::find($id);
+                $countProductAvailable = $product->count;
+                if ($count <= $countProductAvailable) {
+                    $cart->cartAdd($id, $count);
+                    return response()->json(['success' => "Thêm vào giỏ hàng thành công. Vui lòng kiểm tra giỏ hàng"]);
+                } else {
+                    return response()->json(['error' => "Số lượng sản phẩm bạn cần mua không khả dụng"]);
+                }
             } else {
                 return response()->json(['error' => "Vui lòng đăng nhập !"]);
             }
