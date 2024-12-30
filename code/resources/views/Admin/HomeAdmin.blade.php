@@ -19,6 +19,27 @@
       <!-- Navbar -->
       <!-- End Navbar -->
       <div class="container-fluid py-4">
+        {{-- Dữ liệu thống kê doanh thu theo tuần --}}
+        <input value="{{ $Monday }}" id="Monday" hidden>
+        <input value="{{ $Tuesday }}" id="Tuesday" hidden>
+        <input value="{{ $Wednesday }}" id="Wednesday" hidden>
+        <input value="{{ $Thursday }}" id="Thursday" hidden>
+        <input value="{{ $Friday }}" id="Friday" hidden>
+        <input value="{{ $Saturday }}" id="Saturday" hidden>
+        <input value="{{ $Sunday }}" id="Sunday" hidden>
+        {{-- dữ liệu thống kê theo tháng --}}
+        <input value="{{ $jan }}" id="jan" hidden>
+        <input value="{{ $feb }}" id="feb" hidden>
+        <input value="{{ $mar }}" id="mar" hidden>
+        <input value="{{ $apr }}" id="apr" hidden>
+        <input value="{{ $may }}" id="may" hidden>
+        <input value="{{ $june }}" id="june" hidden>
+        <input value="{{ $july }}" id="july" hidden>
+        <input value="{{ $aug }}" id="aug" hidden>
+        <input value="{{ $sep }}" id="sep" hidden>
+        <input value="{{ $oc }}" id="oc" hidden>
+        <input value="{{ $no }}" id="no" hidden>
+        <input value="{{ $de }}" id="de" hidden>
         <div class="row">
           <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
@@ -99,7 +120,7 @@
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-lg-4 col-md-6 mt-4 mb-4">
+          <div class="col-lg-6 col-md-6 mt-4 mb-4">
             <div class="card z-index-2 ">
               <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
                 <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
@@ -109,7 +130,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <h5 class="mt-2 ">Doanh số tuần</h5>
+                <h5 class="mt-2 ">Doanh số tuần (triệu đồng)</h5>
                 {{-- <p class="text-sm ">Last Campaign Performance</p> --}}
                 <hr class="dark horizontal">
                 <div class="d-flex ">
@@ -119,7 +140,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 mt-4 mb-4">
+          <div class="col-lg-6 col-md-6 mt-4 mb-4">
             <div class="card z-index-2  ">
               <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
                 <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
@@ -129,8 +150,8 @@
                 </div>
               </div>
               <div class="card-body">
-                <h5 class="mt-2 "> Doanh số tháng </h5>
-                <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) tăng hôm nay. </p>
+                <h5 class="mt-2 "> Doanh số tháng (triệu đồng) </h5>
+                <p class="text-sm "> (<span class="font-weight-bolder text-success">+15%</span>) tháng nay. </p>
                 <hr class="dark horizontal">
                 <div class="d-flex ">
                   {{-- <i class="material-icons text-sm my-auto me-1">schedule</i> --}}
@@ -139,26 +160,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 mt-4 mb-3">
-            <div class="card z-index-2 ">
-              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                  <div class="chart">
-                    <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <h5 class="mt-2 ">Số lượng truy cập</h5>
-                {{-- <p class="text-sm ">Last Campaign Performance</p> --}}
-                <hr class="dark horizontal">
-                <div class="d-flex ">
-                  {{-- <i class="material-icons text-sm my-auto me-1">schedule</i> --}}
-                  <p class="mb-0 text-sm">Vừa cập nhật</p>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
         <div class="row mb-4">
           <div class="col-lg-8 col-md-7 mb-md-0 mb-4">
@@ -372,7 +374,13 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
-
+    var Monday = document.getElementById('Monday').value
+    var Tuesday = document.getElementById('Tuesday').value
+    var Wednesday = document.getElementById('Wednesday').value
+    var Thursday = document.getElementById('Thursday').value
+    var Friday = document.getElementById('Friday').value
+    var Saturday = document.getElementById('Saturday').value
+    var Sunday = document.getElementById('Sunday').value
             new Chart(ctx, {
                 type: "bar",
                 data: {
@@ -384,7 +392,7 @@
                         borderRadius: 4,
                         borderSkipped: true,
                         backgroundColor: "blue",
-                        data: [50, 20, 10, 22, 50, 10, 40],
+                        data: [Monday,Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday],
                         maxBarThickness: 6
                     }, ],
                 },
@@ -453,11 +461,22 @@
 
 
             var ctx2 = document.getElementById("chart-line").getContext("2d");
-
+            var jan = document.getElementById('jan').value
+            var feb = document.getElementById('feb').value
+            var mar = document.getElementById('mar').value
+            var apr = document.getElementById('apr').value
+            var may = document.getElementById('may').value
+            var june = document.getElementById('june').value
+            var july = document.getElementById('july').value
+            var aug = document.getElementById('aug').value
+            var sep = document.getElementById('sep').value
+            var oc = document.getElementById('oc').value
+            var no = document.getElementById('no').value
+            var de = document.getElementById('de').value
             new Chart(ctx2, {
                 type: "line",
                 data: {
-                    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    labels: ["Apr","Feb","Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                     datasets: [{
                         label: "sales",
                         tension: 0,
@@ -470,7 +489,7 @@
                         borderWidth: 4,
                         backgroundColor: "transparent",
                         fill: true,
-                        data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+                        data: [jan, feb, mar, apr, may, june, july, aug,sep,oc,no,de ],
                         maxBarThickness: 6
 
                     }],
